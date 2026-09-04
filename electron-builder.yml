@@ -1,0 +1,52 @@
+appId: com.suxiaoxiang.port-terminator
+productName: 端口终结者
+asar: true
+compression: normal
+directories:
+  buildResources: build
+  output: dist
+files:
+  - '!**/.vscode/*'
+  - '!src/*'
+  - '!electron.vite.config.{js,ts,mjs,cjs}'
+  - '!{.eslintcache,eslint.config.mjs,.prettierignore,.prettierrc.yaml,dev-app-update.yml,CHANGELOG.md,README.md}'
+  - '!{.env,.env.*,.npmrc,pnpm-lock.yaml}'
+  - '!{tsconfig.json,tsconfig.node.json,tsconfig.web.json}'
+    # 构建后的 Electron 文件
+  - out/**
+  # 排除源码
+  - "!src/**"
+  # 排除 Vite 配置
+  - "!electron.vite.config.{js,ts,mjs,cjs}"
+  # 排除 TypeScript 配置
+  - "!tsconfig*.json"
+  # 排除开发文档
+  - "!README.md"
+  # 排除 Git 文件
+  - "!.git/**"
+  # 排除开发环境文件
+  - "!.env"
+  - "!.env.*"
+win:
+  target:
+    - target: nsis
+      arch:
+        - x64
+  icon: build/icon.ico
+  executableName: port-terminator
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  allowElevation: true
+  perMachine: false
+  artifactName: ${name}-${version}-setup.${ext}
+  shortcutName: ${productName}
+  installerIcon: build/icon.ico
+  uninstallerIcon: build/icon.ico
+  uninstallDisplayName: ${productName}
+  createDesktopShortcut: always
+  createStartMenuShortcut: true
+  language: 2052
+npmRebuild: false
+electronDownload:
+  mirror: https://npmmirror.com/mirrors/electron/
